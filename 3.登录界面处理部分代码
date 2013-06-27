@@ -1,0 +1,32 @@
+<?php
+session_start();
+
+
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "web";
+
+$connection = mysql_connect($host,$user,$pass) or die("unble to connect!");
+mysql_query("set names gbk");
+mysql_select_db($db) or die ("Unable to select database!");
+
+$user = $_POST["user"];$password = $_POST["pwd"];
+$query = "SELECT * FROM user WHERE user_id ='".$user."' AND password='".$password."'";
+     
+    $result = mysql_query($query) or die("error in query");
+  if(mysql_num_rows($result)<=0){
+		
+		echo "                    User's name or password wrong!";
+		header("refresh:1;url=http://localhost/Templates/login.dwt.php");
+		}
+	else{
+		if($user=="00000"){header("refresh:1;url=http://localhost/Templates/login_manager.dwt.php");}
+		else{
+		header("refresh:1;url=http://localhost/Templates/logining.html");}
+		}
+	mysql_free_result($result);
+	mysql_close($connection);
+	
+
+?>
