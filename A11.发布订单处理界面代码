@@ -1,0 +1,23 @@
+<?php
+session_start();
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "web";
+
+$con = mysql_connect($host,$user,$pass) or die("unble to connect!");
+mysql_query("set names utf8");
+mysql_select_db($db) or die ("Unable to select database!");
+
+$id = $_POST["order_id"];$des = $_POST["describe"];$owner = $_POST["owner"];
+$date = $_POST["date"];$state = "未审核";
+
+$mysql_command= "INSERT INTO `order_list`(`order_id`, `describe`,`owner`,`date`,`state`) 
+VALUES ("."'".$id."','".$des."','".$owner."','".$date."','".$state."');";
+
+$result = mysql_query($mysql_command,$con) or die("unble");
+header("refresh:1;url=http://localhost/Templates/orderList.dwt.php");
+
+//echo"<script type = >";
+mysql_close($con);
+?>
