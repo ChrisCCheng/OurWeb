@@ -1,0 +1,40 @@
+<?php
+session_start();
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "web";
+
+$con = mysql_connect($host,$user,$pass) or die("unble to connect!");
+mysql_query("set names utf8");
+mysql_select_db($db) or die ("Unable to select database!");
+
+$user = $_POST["user_id"];$name = $_POST["name"];$sex = $_POST["sex"];
+$class = $_POST["class"];$telephone = $_POST["tel"];$password = $_POST["pass1"];
+
+//$query = "SELECT * FROM user WHERE user_id ='".$user."'";
+
+/*$mysql_command="select * from user where id='$user'";
+$result = mysql_query($mysql_command,$con);
+$row=mysql_fetch_array($result);
+
+if($row){echo "<The user_id has already been registered!>";}
+else{echo "<The user_id hasn't  been registered!>";}*/
+
+$mysql_command= "INSERT INTO `user`(`user_id`, `name`,`sex`,`class`,`telephone`,`password`) 
+VALUES ("."'".$user."','".$name."','".$sex."','".$class."','".$telephone."','".$password."');";
+
+$result = mysql_query($mysql_command,$con) or die("unble");
+header("refresh:1;url=http://localhost/Templates/logining.html");
+
+/*
+  	
+	else if(mysql_num_rows($result)>0){
+		echo "<The user_id has already been registered!>";
+		header("refresh:1;url=http://localhost/Templates/register1.dwt.php");
+		}	
+		
+	mysql_free_result($result);
+	mysql_close($connection);	*/
+
+?>
